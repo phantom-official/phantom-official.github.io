@@ -5,20 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Phantom Official</title>
     <link rel="icon" href="phantom_logo.png" type="image/png"> 
+
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* Futuristic Color Palette */
-            --primary-bg: #1a1a2e; /* Very dark blue/purple */
-            --header-footer-bg: #0f0f1d; /* Even darker, near black */
-            --header-footer-text: #e0e0e0; /* Silver/light grey */
-            --content-bg: #2a2a4a; /* Deep purple/blue-grey for content cards */
-            --content-text: #c0c0e0; /* Slightly lighter silver/blue-grey for main text */
-            --accent-electric-blue: #00FFFF; /* Cyan/Electric Blue */
-            --accent-deep-purple: #8A2BE2; /* Blue Violet / Deep Purple */
-            --shadow-glow-blue: rgba(0, 255, 255, 0.3); /* Electric blue glow effect */
-            --shadow-glow-purple: rgba(138, 43, 226, 0.4); /* Deep purple glow effect */
+            --primary-bg: #1a1a2e;
+            --header-footer-bg: #0f0f1d;
+            --header-footer-text: #e0e0e0;
+            --content-bg: #2a2a4a;
+            --content-text: #c0c0e0;
+            --accent-electric-blue: #00FFFF;
+            --accent-deep-purple: #8A2BE2;
+            --shadow-glow-blue: rgba(0, 255, 255, 0.3);
+            --shadow-glow-purple: rgba(138, 43, 226, 0.4);
             --text-glow: 0 0 5px var(--accent-electric-blue), 0 0 10px var(--accent-electric-blue);
+        }
+
+        /* --- NEW ANIMATION KEYFRAMES --- */
+        @keyframes fadeInSlideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         body {
@@ -33,17 +45,23 @@
             flex-direction: column;
             line-height: 1.6;
         }
+
+        /* --- HEADER CHANGES --- */
         header {
-            background-color: var(--header-footer-bg);
+            background: linear-gradient(to right, var(--header-footer-bg), #1a1a2e, var(--header-footer-bg)); /* Subtle gradient */
             color: var(--header-footer-text);
             padding: 20px 0;
             box-shadow: 0 2px 15px var(--shadow-glow-blue);
-            border-bottom: 1px solid rgba(0, 255, 255, 0.1);
-            /* --- NEW/ADJUSTED CSS FOR CENTERING --- */
-            display: flex; /* Make the header a flex container */
-            flex-direction: column; /* Stack its children (h1 and nav) vertically */
-            align-items: center; /* Center children horizontally within the header */
-            /* -------------------------------------- */
+            border-bottom: 2px solid; /* Needed for border-image to show */
+            border-image: linear-gradient(to right, var(--accent-electric-blue) 1%, transparent 5%, transparent 95%, var(--accent-electric-blue) 99%) 1;
+            border-left: 0;
+            border-right: 0;
+            border-top: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            opacity: 0; /* For load-in animation */
+            animation: fadeInSlideUp 0.6s ease-out forwards; /* Load-in animation */
         }
         h1 {
             font-family: 'Orbitron', sans-serif;
@@ -56,12 +74,14 @@
             padding: 0;
             margin: 0;
             display: flex;
-            justify-content: center; /* This centers the list items within the nav ul */
+            justify-content: center;
             flex-wrap: wrap;
         }
         nav ul li {
             margin: 0 15px;
         }
+
+        /* --- NAV LINK CHANGES --- */
         nav ul li a {
             color: var(--accent-electric-blue);
             text-decoration: none;
@@ -69,14 +89,19 @@
             font-size: 1.2em;
             padding: 8px 15px;
             border-radius: 5px;
-            transition: background-color 0.3s ease, color 0.3s ease, text-shadow 0.3s ease;
+            transition: background-color 0.3s ease, color 0.3s ease, text-shadow 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease, border-radius 0.3s ease; /* Add transform, box-shadow, border-radius to transition */
             text-shadow: var(--text-glow);
         }
         nav ul li a:hover {
             background-color: var(--accent-electric-blue);
             color: var(--header-footer-bg);
             text-shadow: none;
+            transform: scale(1.05); /* Slightly enlarge on hover */
+            box-shadow: 0 0 15px var(--shadow-glow-blue); /* Add a glow to the nav item */
+            border-radius: 8px; /* Slightly more rounded corners */
         }
+
+        /* --- CONTAINER LOAD-IN --- */
         .container {
             padding: 30px;
             max-width: 900px;
@@ -86,30 +111,46 @@
             box-shadow: 0 0 20px var(--shadow-glow-purple);
             flex-grow: 1;
             border: 1px solid rgba(138, 43, 226, 0.1);
+            opacity: 0; /* For load-in animation */
+            animation: fadeInSlideUp 0.8s ease-out forwards; /* Load-in animation */
+            animation-delay: 0.2s; /* Delay slightly after header */
         }
         .container p {
             color: var(--content-text);
             font-size: 1.1em;
             margin-bottom: 20px;
         }
+
+        /* --- FEATURE GRID LOAD-IN & CARD HOVER CHANGES --- */
         .feature-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 25px;
             margin-top: 40px;
+            opacity: 0; /* For load-in animation */
+            animation: fadeInSlideUp 0.8s ease-out forwards; /* Load-in animation */
+            animation-delay: 0.4s; /* Delay after container */
         }
         .feature-card {
             background-color: var(--header-footer-bg);
             padding: 25px;
             border-radius: 10px;
             box-shadow: 0 0 15px var(--shadow-glow-blue);
-            text-align: left;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease; /* Add border-color to transition */
             border: 1px solid rgba(0, 255, 255, 0.1);
+            opacity: 0; /* For staggered load-in animation */
+            animation: fadeInSlideUp 0.6s ease-out forwards; /* Load-in animation for cards */
         }
+        /* Staggered animation delay for individual cards */
+        .feature-card:nth-child(1) { animation-delay: 0.6s; }
+        .feature-card:nth-child(2) { animation-delay: 0.7s; }
+
         .feature-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 0 25px var(--shadow-glow-blue), inset 0 0 10px var(--shadow-glow-blue);
+            transform: translateY(-10px) rotateX(2deg); /* Slightly lift and tilt */
+            box-shadow: 0 0 35px var(--shadow-glow-blue), /* Larger, more intense glow */
+                        0 0 15px var(--shadow-glow-purple), /* Add a purple secondary glow */
+                        inset 0 0 15px var(--accent-electric-blue); /* Inner glow */
+            border-color: var(--accent-electric-blue); /* Highlight border on hover */
         }
         .feature-card h3 {
             font-family: 'Orbitron', sans-serif;
@@ -130,7 +171,7 @@
             text-decoration: none;
             padding: 10px 20px;
             border-radius: 5px;
-            transition: background-color 0.3s ease, transform 0.2s ease;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
             font-weight: 600;
             box-shadow: 0 0 10px rgba(138, 43, 226, 0.5);
         }
@@ -151,33 +192,36 @@
     </style>
 </head>
 <body>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4413571640317050"
+         crossorigin="anonymous"></script>
+
     <header>
-        <h1>Phantom</h1>
+        <h1>Phantom Official</h1>
         <nav>
             <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="phantom-games/index.html">Games</a></li>
-                <li><a href="phantom-automation/index.html">Automation</a></li>
+                <li><a href="https://phantom-official.github.io/">Home</a></li>
+                <li><a href="https://phantom-games.github.io/">Games</a></li>
+                <li><a href="https://phantom-automation.github.io/">Automation</a></li>
             </ul>
         </nav>
     </header>
 
     <div class="container">
-        <p>Welcome to Phantom! We are dedicated to building innovative software solutions, from captivating games to powerful automation tools. Our mission is to enhance your digital experience with cutting-edge technology and seamless performance.</p>
+        <p>Welcome to Phantom Official! We are dedicated to building innovative software solutions, from captivating games to powerful automation tools. Our mission is to enhance your digital experience with cutting-edge technology and seamless performance.</p>
         <p>Explore our projects and see how Phantom is shaping the future of digital interaction.</p>
 
         <div class="feature-grid">
             <div class="feature-card">
                 <h3>Phantom Games</h3>
                 <p>Dive into our immersive gaming worlds. Experience unique gameplay, stunning visuals, and engaging stories designed to keep you on the edge of your seat.</p>
-                <a href="phantom-games/index.html">Explore Games</a>
+                <a href="https://phantom-games.github.io/">Explore Games</a>
             </div>
             <div class="feature-card">
                 <h3>Phantom Automation</h3>
                 <p>Streamline your digital tasks with our intelligent automation solutions. From routine processes to complex web interactions, we build tools that save you time and boost efficiency.</p>
-                <a href="phantom-automation/index.html">Discover Automation</a>
+                <a href="https://phantom-automation.github.io/">Discover Automation</a>
             </div>
-            </div>
+        </div>
     </div>
 
     <footer>
